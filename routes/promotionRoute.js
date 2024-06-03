@@ -5,10 +5,11 @@ const {
   updateOnePromotion,
   deleteOnePromotion
 } = require("../controllers/promotionController");
+const { checkAdmin } = require("../middlewares/checkRole");
 const promotionRouter = express.Router();
 
 promotionRouter.get("/", getAllPromotion);
-promotionRouter.post("/", createOnePromotion);
-promotionRouter.put("/:promotion_id", updateOnePromotion);
-promotionRouter.delete("/:promotion_id", deleteOnePromotion);
+promotionRouter.post("/", checkAdmin, createOnePromotion);
+promotionRouter.put("/:promotion_id", checkAdmin, updateOnePromotion);
+promotionRouter.delete("/:promotion_id", checkAdmin, deleteOnePromotion);
 module.exports = promotionRouter;

@@ -5,11 +5,13 @@ const {
   updateImagesForRoom,
   deleteImagesForRoom
 } = require("../controllers/imageRoomController");
+const { checkUser } = require("../middlewares/checkRole");
+
 const imageRoomRouter = express.Router();
 
 imageRoomRouter.get("/", getAllImagesRoom);
-imageRoomRouter.post("/", createImagesForRoom);
-imageRoomRouter.put("/:image_roomId", updateImagesForRoom);
-imageRoomRouter.delete("/:image_roomId", deleteImagesForRoom);
+imageRoomRouter.post("/", checkUser, createImagesForRoom);
+imageRoomRouter.put("/:image_roomId", checkUser, updateImagesForRoom);
+imageRoomRouter.delete("/:image_roomId", checkUser, deleteImagesForRoom);
 
 module.exports = imageRoomRouter;
